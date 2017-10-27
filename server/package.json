@@ -1,0 +1,17 @@
+{
+  "name": "@mapbase/server",
+  "version": "1.0.0",
+  "description": "Mapbase Service",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.9.0",
+    "graphcool-lib": "^0.1.0",
+    "graphql-request": "^1.4.0",
+    "isomorphic-fetch": "^2.2.1"
+  },
+  "devDependencies": {
+    "eslint-config-netflix": "^2.0.0"
+  }
+}
