@@ -1,5 +1,13 @@
 {
   "expo": {
-    "sdkVersion": "21.0.0"
+    "name": "Mapbase Mobile App",
+    "slug": "mapbase-mobile",
+    "privacy": true,
+    "sdkVersion": "22.0.0",
+    "primaryColor": "#000000",
+    "splash": {
+      "backgroundColor": "#000000",
+      "image": "./assets/mapbase.png"
+    }
   }
 }

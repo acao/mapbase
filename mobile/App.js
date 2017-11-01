@@ -7,9 +7,12 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { StackNavigator } from 'react-navigation';
-import Project from './Project';
-import ProjectList from './ProjectList';
-import CreateDataPoint from './CreateDataPoint';
+import Project from './screens/Project';
+import ProjectList from './screens/ProjectList';
+import CreateDataPoint from './screens/CreateDataPoint';
+import Camera from './components/Camera';
+
+import store from './store';
 
 const ModalStack = StackNavigator({
   Home: {
@@ -31,30 +34,49 @@ const ModalStack = StackNavigator({
     },
     path: 'data-point/create',
     screen: CreateDataPoint
+  },
+  Camera: {
+    navigationOptions: {
+      headerTitle: 'Camera'
+    },
+    path: 'data-point/create/camera',
+    screen: Camera
   }
 });
 
-const hasSubscriptionOperation = ({ query: { definitions } }) =>
-  definitions.some(({ kind, operation }) => kind === 'OperationDefinition' && operation === 'subscription');
-
-const link = ApolloLink.split(
-  hasSubscriptionOperation,
-  new WebSocketLink({
-    uri: 'ws://localhost:60000/subscriptions/v1/cj999ixnc00080145xgljzi6c',
-    options: { reconnect: true }
-  }),
-  new HttpLink({
-    uri: 'http://localhost:60000/simple/v1/cj999ixnc00080145xgljzi6c'
-  })
-);
+// const hasSubscriptionOperation = ({ query: { definitions } }) =>
+//   definitions.some(({ kind, operation }) => kind === 'OperationDefinition' && operation === 'subscription');
+//
+// const link = ApolloLink.split(
+//   // hasSubscriptionOperation,
+//   // new WebSocketLink({
+//   //   uri: 'ws://localhost:60000/subscriptions/v1/cj999ixnc00080145xgljzi6c',
+//   //   options: { reconnect: true }
+//   // }),
+//   new HttpLink({
+//     uri: 'http://5ab1cd54.ngrok.io/simple/v1/cj999ixnc00080145xgljzi6c'
+//   })
+// );
 const client = new ApolloClient({
-  link,
+  link: new HttpLink({
+    uri: 'http://5887052b.ngrok.io/simple/v1/cj999ixnc00080145xgljzi6c'
+  }),
   cache: new InMemoryCache()
 });
 
 const App = () => (
-  <ApolloProvider client={client}>
-    <ModalStack />
+  <ApolloProvider
+    style={{
+      backgroundColor: 'white'
+    }}
+    client={client}
+    store={store}
+  >
+    <ModalStack
+      style={{
+        backgroundColor: 'white'
+      }}
+    />
   </ApolloProvider>
 );
 

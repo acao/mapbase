@@ -28,14 +28,17 @@ class ListPage extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps = async nextProps => {
+    await this.setState({
+      dataSource: dataSource.cloneWithRows(nextProps.allPostsQuery.allPosts)
+    });
     if (!nextProps.allPostsQuery.loading && !nextProps.allPostsQuery.error) {
       const { dataSource } = this.state;
       this.setState({
         dataSource: dataSource.cloneWithRows(nextProps.allPostsQuery.allPosts)
       });
     }
-  }
+  };
 
   render() {
     if (this.props.allPostsQuery.loading) {
